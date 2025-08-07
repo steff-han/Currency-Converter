@@ -21,20 +21,22 @@ const ERROR_400 = { error : 'Invalid Request'};
 const ERROR_500 = { error: 'Server Error'};
 
 /** Read all expenses using GET /expenses 
- * 
+ *  (NOTE: Feel free to delete this as it was a test to connect to MongoDB)
  */
 app.get('/expenses', asyncHandler(async (req, res) => {
-    try {
-        const allExpenses = await expenses.findExpenses(req.query);
-        res.status(200).json(allExpenses);
-    } catch (err){
-        res.status(500).json(ERROR_505);
-    };
-}))
+    const allExpenses = await expenses.findExpenses(req.query);
+    res.status(200).json(allExpenses);
+}));
 
-/** Convert all expense amounts using POST /convert
- * 
+/** Convert all expense amounts from USD to MXN using PUT /expenses
  */
-// app.post('/convert', asyncHandler(async (req, res) => {
+app.put('/expenses', asyncHandler(async (req, res) => {
 
-// }))
+    const allExpenses = await expenses.convertExpenses();
+
+    if (!allExpenses){
+        return res.status(404).json(ERROR_404);
+    }
+
+    res.status(200).json(allExpenses);
+}));

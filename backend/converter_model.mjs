@@ -35,61 +35,43 @@ const expenseSchema = mongoose.Schema({
 });
 
 /**
- * Compie the model from the schema 
+ * MODEL: Compile the model from the schema 
  */
 const Expense = mongoose.model(EXPENSE_CLASS, expenseSchema);
-
 
 /**
  * Finds expenses according to queries 
  * @param {*} filter 
- * @returns 
+ * @returns All entries in the MongoDB Collection 
  */
 const findExpenses = async (filter) => {
+    // Call find() to return a query object
     const query = Expense.find(filter);
     return query.exec();
 }
 
-
-
 /**
- * 
+ *  Given that the amount is in USD initially, it will convert to MXN. 
+ *  This feature may expand to other currencies in the future.
  * @param {*} id 
  * @param {*} amount 
- * @returns Given that the amount is in USD initially, it will convert to the selected currency amount. 
+ * @returns MXN Currency Amount
  */
-const convertExpense = async (id, selectedCurrency) => {
+const convertExpenses = async () => {
 
-    // Find the expense entry in MongoDB 
-    const query = await Expense.findById(id);
+    // USD:MXN Exchange Rate is $1.00 = 18.62 pesos
+    const convertMXN = (oldAmount) => (oldAmount * 18.62);
 
-    console.log(query);
+    // Awiat a promise to return an array of all entry objects in the database 
+    const allExpenses = await Expense.find({});
 
-    if (selectedCurrency === "USD"){ 
+    // // Change ALL entries (empty condition) by the amount query and according to currency. Will return the updated array of entries
+    allExpenses.map(expense => {
+        expense.amount = convertMXN(expense.amount);
+        return expense.save();
+    });
 
-    }
-
-    if (selectedCurrency === "EUR"){
-
-    }
-
-    if (selectedCurrency === "GBP"){
-
-    }
-
-    if (selectedCurrency === "JPY"){
-
-    }
-
-    if (selectedCurrency === "CAD"){
-
-    }
-
-    if (selectedCurrency === "MXN"){
-
-    }
-    
-    return query.exec();
+    return allExpenses;
 }
 
-export { connect, findExpenses, convertExpense };
+export { connect, findExpenses, convertExpenses };
