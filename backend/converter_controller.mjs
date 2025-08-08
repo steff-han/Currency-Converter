@@ -17,8 +17,6 @@ app.listen(PORT, async () => {
 });
 
 const ERROR_404 = { error : 'Not Found'};
-const ERROR_400 = { error : 'Invalid Request'};
-const ERROR_500 = { error: 'Server Error'};
 
 /** Read all expenses using GET /expenses 
  *  (NOTE: Feel free to delete this as it was a test to connect to MongoDB)
