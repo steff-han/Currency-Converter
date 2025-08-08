@@ -6,19 +6,22 @@ To make a request, send a PUT request to the API endpoint: http://localhost:3002
 The body parameter will be the array of expense objects stored in MongoDB. 
 
 Example Request:
+'''
 const response = await fetch(
-                     `/convert`, {
-                         method: 'PUT', 
-                         headers: {'Content-type': 'application/json'}, 
-                         body: JSON.stringify(expenseData)
-                     }
-                 );
+       `/convert`, {
+           method: 'PUT', 
+           headers: {'Content-type': 'application/json'}, 
+           body: JSON.stringify(expenseData)
+       }
+   );
+'''
 
 
 ## 2. RESPONSE
 To receiva a response, await for all promises for each object to resolve before parsing into JSON. 
 
 Example Response: 
+'''
 [
   {
     "_id": "6890fbb32e3981278f770919",
@@ -51,6 +54,7 @@ Example Response:
     "__v": 0
   }
 ]
+'''
 
 ## 3. UML Diagram 
 
