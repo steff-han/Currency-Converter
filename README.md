@@ -58,7 +58,7 @@ Example Response:
 
 ## 3. UML Diagram 
 
-
+<img width="860" height="554" alt="image" src="https://github.com/user-attachments/assets/a6e270bb-4612-408f-a625-1621ed868b3a" />
 
 
 
