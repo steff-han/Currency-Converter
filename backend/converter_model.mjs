@@ -59,8 +59,8 @@ const findExpenses = async (filter) => {
  */
 const convertExpenses = async (allExpenses) => {
 
-    // USD:MXN Exchange Rate is $1.00 = 18.62 pesos
-    const convertMXN = (oldAmount) => (oldAmount * 18.62);
+    // USD:MXN Exchange Rate is $1.00 = 18.62 pesos with rounding
+    const convertMXN = (oldAmount) => ( Math.round((oldAmount * 18.62) * 100) / 100);
 
     // Change all objects in the expenses array 
     const convertAll = allExpenses.map(expense => {
