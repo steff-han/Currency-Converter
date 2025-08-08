@@ -57,21 +57,24 @@ const findExpenses = async (filter) => {
  * @param {*} amount 
  * @returns MXN Currency Amount
  */
-const convertExpenses = async () => {
+const convertExpenses = async (allExpenses) => {
 
     // USD:MXN Exchange Rate is $1.00 = 18.62 pesos
     const convertMXN = (oldAmount) => (oldAmount * 18.62);
 
-    // Awiat a promise to return an array of all entry objects in the database 
-    const allExpenses = await Expense.find({});
-
-    // // Change ALL entries (empty condition) by the amount query and according to currency. Will return the updated array of entries
-    allExpenses.map(expense => {
-        expense.amount = convertMXN(expense.amount);
-        return expense.save();
+    // Change all objects in the expenses array 
+    const convertAll = allExpenses.map(expense => {
+        // We will find each object and change it's amount 
+        return Expense.findByIdAndUpdate(
+            expense._id, 
+            { amount: convertMXN(expense.amount) }
+        );
     });
 
-    return allExpenses;
+    // Await for all promises for every object in the array to resolve
+    const convertedExpenses = await Promise.all(convertAll);
+
+    return convertedExpenses;
 }
 
 export { connect, findExpenses, convertExpenses };

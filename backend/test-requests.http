@@ -2,12 +2,12 @@
 ### Response
 ### Status Code: 200
 ### Body: All grocery items
-GET http://localhost:3002/expenses HTTP/1.1
+GET http://localhost:3002/convert HTTP/1.1
 
 ### Request 2: Convert all amounts to MXN
 ### Response
 ### Status Code: 
 ### Body: JSON object 
-PUT http://localhost:3002/expenses HTTP/1.1
+PUT http://localhost:3002/convert HTTP/1.1
 content-type: application/json
 

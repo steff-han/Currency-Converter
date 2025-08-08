@@ -8,8 +8,8 @@ import * as expenses from './converter_model.mjs'
 const PORT = process.env.port;
 const app = express();
 
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
 app.listen(PORT, async () => {
     await expenses.connect();
@@ -23,20 +23,22 @@ const ERROR_500 = { error: 'Server Error'};
 /** Read all expenses using GET /expenses 
  *  (NOTE: Feel free to delete this as it was a test to connect to MongoDB)
  */
-app.get('/expenses', asyncHandler(async (req, res) => {
+app.get('/convert', asyncHandler(async (req, res) => {
     const allExpenses = await expenses.findExpenses(req.query);
     res.status(200).json(allExpenses);
 }));
 
 /** Convert all expense amounts from USD to MXN using PUT /expenses
  */
-app.put('/expenses', asyncHandler(async (req, res) => {
+app.put('/convert', asyncHandler(async (req, res) => {
 
-    const allExpenses = await expenses.convertExpenses();
+    const allExpenses = req.body;
 
-    if (!allExpenses){
+    const convertedExpenses = await expenses.convertExpenses(allExpenses);
+
+    if (!convertedExpenses){
         return res.status(404).json(ERROR_404);
     }
 
-    res.status(200).json(allExpenses);
+    res.status(200).json(convertedExpenses);
 }));
