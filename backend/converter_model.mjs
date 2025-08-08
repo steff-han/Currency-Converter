@@ -2,8 +2,8 @@
 import mongoose from 'mongoose';
 import 'dotenv/config';
 
-const EXPENSE_DB_NAME = 'ExpenseDB';
-const EXPENSE_CLASS = 'expense';
+const USER_DB_NAME = 'user_db';
+const EXPENSE_CLASS = 'Expense';
 
 let connection = undefined;
 
@@ -14,7 +14,7 @@ let connection = undefined;
 async function connect(){
     try{
         connection = await mongoose.connect(process.env.MONGODB_CONNECT_TEST, 
-            {dbName: EXPENSE_DB_NAME});
+            {dbName: USER_DB_NAME});
         console.log("Successfully connected to MongoDB using Mongoose!");
     } catch(err){
         console.log(err);
@@ -77,4 +77,5 @@ const convertExpenses = async (allExpenses) => {
     return convertedExpenses;
 }
 
-export { connect, findExpenses, convertExpenses };
+
+export { connect, findExpenses, convertExpenses};

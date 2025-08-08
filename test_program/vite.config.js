@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/convert': 'http://localhost:3002'
+      '/expenses': 'http://localhost:3002'
     },
   },
 });

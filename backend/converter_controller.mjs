@@ -19,18 +19,17 @@ app.listen(PORT, async () => {
 const ERROR_404 = { error : 'Not Found'};
 
 /** Read all expenses using GET /expenses 
- *  (NOTE: Feel free to delete this as it was a test to connect to MongoDB)
  */
-app.get('/convert', asyncHandler(async (req, res) => {
-    const allExpenses = await expenses.findExpenses(req.query);
+app.get('/expenses', asyncHandler(async (req, res) => {
+    const allExpenses = await expenses.findExpenses({});
     res.status(200).json(allExpenses);
 }));
 
 /** Convert all expense amounts from USD to MXN using PUT /expenses
  */
 app.put('/convert', asyncHandler(async (req, res) => {
-
     const allExpenses = req.body;
+    console.log(allExpenses);
 
     const convertedExpenses = await expenses.convertExpenses(allExpenses);
 
