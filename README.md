@@ -4,9 +4,10 @@ This is a microservice written in NodeJS/Express that takes an expense amount in
 ## 1. REQUEST
 To make a request, send a PUT request to the API endpoint: http://localhost:3002/convert. 
 The body parameter will be the array of expense objects stored in MongoDB. 
+Note that you must pass in this array from the frontend REACT component before passing it again within the request body. 
 
 Example Request:
-'''
+```
 const response = await fetch(
        `/convert`, {
            method: 'PUT', 
@@ -14,14 +15,13 @@ const response = await fetch(
            body: JSON.stringify(expenseData)
        }
    );
-'''
-
+```
 
 ## 2. RESPONSE
-To receiva a response, await for all promises for each object to resolve before parsing into JSON. 
+To receive a response, await for all promises from each object to resolve before parsing into JSON. 
 
 Example Response: 
-'''
+```
 [
   {
     "_id": "6890fbb32e3981278f770919",
@@ -54,7 +54,7 @@ Example Response:
     "__v": 0
   }
 ]
-'''
+```
 
 ## 3. UML Diagram 
 
